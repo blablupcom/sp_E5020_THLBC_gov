@@ -107,6 +107,19 @@ for link in links:
             csvMth = title.replace(u'\xa0', ' ').split(' ')[-3][:3]
         csvMth = convert_mth_strings(csvMth.upper())
         data.append([csvYr, csvMth, url])
+table_links = soup.find('table', 'ImmTS_Default').find('tbody').find_all('tr')
+for table_link in table_links:
+    title = table_link.find('th').text
+    csvYr = title.split('for ')[-1].split(' ')[-1]
+    csvMth = title.split('for ')[-1].split(' ')[0][:3]
+    try:
+        url = 'http://www.towerhamlets.gov.uk/' + table_link.find('td').find_next('td').find('a')['href']
+    except:
+        pass
+    csvMth = convert_mth_strings(csvMth.upper())
+    data.append([csvYr, csvMth, url])
+
+
 
 #### STORE DATA 1.0
 

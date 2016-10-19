@@ -83,11 +83,7 @@ def convert_mth_strings ( mth_string ):
 #### VARIABLES 1.0
 
 entity_id = "E5020_THLBC_gov"
-<<<<<<< HEAD
 url = "http://www.towerhamlets.gov.uk/lgnl/council_and_democracy/Transparency/payments_to_suppliers.aspx"
-=======
-url = "http://www.towerhamlets.gov.uk/lgnl/council_and_democracy/council_budgets_and_spending/transparency/payments_to_suppliers.aspx"
->>>>>>> b8625ea82293042f2495ccbb57dd2d672ab87dd4
 errors = 0
 data = []
 
@@ -98,7 +94,6 @@ soup = BeautifulSoup(html, 'lxml')
 
 
 #### SCRAPE DATA
-<<<<<<< HEAD
 
 table_links = soup.find_all('a', 'sys_15')
 for table_link in table_links:
@@ -123,36 +118,6 @@ for table_link in table_links:
             pass
         csvMth = convert_mth_strings(csvMth.upper())
         data.append([csvYr, csvMth, url])
-=======
-import requests
-
-html = requests.get(url)
-soup = BeautifulSoup(html.text, 'lxml')
-
-links = soup.findAll('a', href=True)
-for link in links:
-    url = 'http://www.towerhamlets.gov.uk/' + link['href']
-    title = link.text.strip()
-    if title.startswith('Payment f') or title.startswith('Payments f') and 'card' not in title:
-        title = title.upper().replace('\r',' ').replace('\n',' ')
-        csvYr = title.replace(u'\xa0', ' ').strip().split(' ')[-1]
-        csvMth = title.replace(u'\xa0', ' ').split(' ')[-2][:3]
-        if 'APRIL' in title.replace(u'\xa0', ' ').split(' ')[-3]:
-            csvMth = title.replace(u'\xa0', ' ').split(' ')[-3][:3]
-        csvMth = convert_mth_strings(csvMth.upper())
-        data.append([csvYr, csvMth, url])
-table_links = soup.find('table').find('tbody').find_all('tr')
-for table_link in table_links:
-    title = table_link.find('th').text
-    csvYr = title.strip().split('for ')[-1].split(' ')[-1]
-    csvMth = title.strip().split('for ')[-1].split(' ')[0][:3]
-    try:
-        url = 'http://www.towerhamlets.gov.uk/' + table_link.find('td').find_next('td').find('a')['href']
-    except:
-        pass
-    csvMth = convert_mth_strings(csvMth.upper())
-    data.append([csvYr, csvMth, url])
->>>>>>> b8625ea82293042f2495ccbb57dd2d672ab87dd4
 
 
 

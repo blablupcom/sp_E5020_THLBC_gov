@@ -103,6 +103,8 @@ for table_link in table_links:
     csvMth = title[:3]
     if 'AHW-Directorate' in url:
         break
+    if 'spend' in title:
+        csvYr = title.split()[1]
     csvMth = convert_mth_strings(csvMth.upper())
     data.append([csvYr, csvMth, url])
 table_links = soup.find_all('a', 'sys_18')
@@ -142,4 +144,3 @@ if errors > 0:
 
 
 #### EOF
-

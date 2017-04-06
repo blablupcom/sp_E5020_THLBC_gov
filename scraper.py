@@ -101,9 +101,11 @@ for table_link in table_links:
     url = 'http://www.towerhamlets.gov.uk/' + table_link['href']
     csvYr = title[-4:]
     csvMth = title[:3]
+    if 'card' in title:
+        continue
     if 'AHW-Directorate' in url:
         break
-    if 'spend' in title:
+    if 'spend' in title or 'Spend' in title:
         csvYr = title.split()[1]
     csvMth = convert_mth_strings(csvMth.upper())
     data.append([csvYr, csvMth, url])
